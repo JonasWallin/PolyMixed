@@ -366,18 +366,20 @@ GeneForward <- function(GeneMixObj,
 #' @param markers    - (m x 1) length of the m chromosnes
 #' @param dCM        - (double) distance in centiMorgan
 #' @param dupl       - (c x 1) duplicated rows of X (found in GeneMixObj$LikObj$X)
+#' @export
 mixedModelForwardBackward <- function(GeneMixObj,
                                       markers ,
                                       dCM =1,
                                       dupl = NULL,
                                       liberal = TRUE,
                                       qval = NULL,
-                                      alpha = 0.05) {
+                                      alpha = 0.05,
+                                      estParam = T) {
 
 
   M <- ncol(GeneMixObj$LikObj$UX)
   find <- c()
-  GeneMixObj <- mixedModel(GeneMixObj, dupl = dupl)
+  GeneMixObj <- mixedModel(GeneMixObj, estPar = estParam,dupl = dupl)
   if(GeneMixObj$tauOff==T)
     GeneMixObj$tau = 0
   t <- GeneMixObj$t

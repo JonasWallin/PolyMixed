@@ -26,14 +26,11 @@ qtl2 <- c(signal, qtl.pos[2], 1)
 qtl3 <- c(-0, qtl.pos[3], 1)
 # --------------------------------------------------------------------------
 
-#source("../codes/misc/3-exp_matrix.R")
 library(RcppEigen)
 library(ggplot2)
 library(gridExtra)
 library(ggpubr)
 library(PolyMixed)
-#source("../codes/misc/4-help_functions.R")
-
 
 
 #i = 1
@@ -42,6 +39,7 @@ count <- 0
 plist <- list()
 taus <- c(0.01,0.2)
 ns   <- c(100, 400)
+k <- 5
 for(tau in taus){
   for(n in ns){
     count <- count + 1
@@ -57,7 +55,6 @@ for(tau in taus){
                                          SVDX = SVDX,
                                          meanMuOff = T,
                                          tauOff = F)
-    k <- 5
     MixGeneObj$theta0 <- log(c(sigma, tau))
     MixGeneObj <- PolyMixed::mixedModel(MixGeneObj, find = NULL, dupl = dupl, estPar = F)
     M <- sum(markers) - length(markers)
@@ -82,5 +79,5 @@ for(tau in taus){
   }
 }
 if(save.fig)
-  ggpubr::ggexport(marrangeGrob(plist, nrow=2, ncol=2, top=NULL), filename ="OU.pdf")
+  ggpubr::ggexport(marrangeGrob(plist, nrow=2, ncol=2, top=NULL), filename ="Figure2.pdf")
 #ggsave("OU.pdf",marrangeGrob(plist, nrow=2, ncol=2))

@@ -11,7 +11,8 @@ mixedModelForwardBackward(
   dupl = NULL,
   liberal = TRUE,
   qval = NULL,
-  alpha = 0.05
+  alpha = 0.05,
+  estParam = T
 )
 }
 \arguments{

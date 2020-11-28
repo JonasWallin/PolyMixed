@@ -88,3 +88,83 @@ simulateDesignMatrix <- function(chr, m, n, d, seed = NA) {
   return(2 * X - 1) # -1/1 coding
 }
 
+#' calculate power, FP, FDR, FWER, distance and beta error
+#' @param find      - (q x 1) list of position discovered
+#' @param beta      - (q x 1) list of the coeffient of the discoveries
+#' @param beta.true - (m x 1) vector of the true coeffients
+#' @param qtl.pos   - (m x 1) vecotr of the true positions
+#' @param maxCM     - (int) minimum abs dist coutning as a find
+#' @export
+summarizeFind.new <- function(find, beta, beta.true, qtl.pos, maxCM = 15){
+
+
+  m <- length(qtl.pos)
+  q <- length(find)
+  find.matrix <- matrix(0,  q, m + 1)
+  if(m > 0){
+    dist.matrix <- matrix(NA, q, m)
+    beta.matrix <- matrix(NA, q, m)
+  }
+  for (i in 1:q) {
+    if (length(find[[i]]) == 0)
+      next
+    if(m == 0){
+      find.matrix[i] <- length(find[[i]])
+      next
+    }
+    ord <- order(find[[i]])
+    find[[i]] <- find[[i]][ord]
+    beta[[i]] <- beta[[i]][ord]
+    dist <- sapply(find[[i]], function(x) min(abs(x - qtl.pos)))
+    k <- length(dist)
+    b <- length(beta[[i]])
+    if (k) beta.qtls <- beta[[i]][1:k]
+    close.qtls <- sapply(find[[i]], function(x) which.min(abs(x - qtl.pos)))
+    close.qtls[dist > maxCM] <- m + 1
+
+    if (length(close.qtls)) {
+      tab <- table(close.qtls)
+      names <- as.numeric(names(tab))
+      find.matrix[i, names] <- tab
+      if (sum(close.qtls != m + 1)) {
+        names <- names[names != m + 1]
+        tab <- tab[names(tab) != m + 1]
+        dist.qtls <- dist[dist <= maxCM]
+        dist.qtls <- tapply(dist.qtls, rep(names, tab), mean)
+        beta.qtls <- beta.qtls[dist <= maxCM]
+        beta.qtls <- tapply(beta.qtls, rep(names, tab), mean)
+        dist.matrix[i, names] <- dist.qtls
+        beta.matrix[i, names] <- beta.qtls
+      }
+    }
+
+
+  }
+  fp       <- mean(find.matrix[, (m+1), drop=FALSE])
+  fdr      <- mean(find.matrix[, (m+1), drop=FALSE] / apply(find.matrix, 1, sum), na.rm = T)
+  fwer     <- mean(find.matrix[, (m+1)]>0)
+
+  if(m>0){
+    dist     <- apply(dist.matrix, 2, mean, na.rm = TRUE)
+    power    <- apply(find.matrix[, -(m+1), drop=FALSE], 2, function(x) mean(x > 0))
+    beta.dif <- abs(sweep(beta.matrix, 2, beta.true))
+    beta.err <- apply(beta.dif, 2, mean, na.rm = TRUE)# / abs(beta.true)
+  }
+
+  if(m > 0){
+    results <- matrix(NA, 3, m + 3)
+    colnames(results) <- c(paste('QTL',c(1:m),sep=''), "FP", "FDR", "FWER")
+    rownames(results) <- c("Power", "Dist", "Beta_err")
+    results[1, ] <- c(power, fp, fdr, fwer)
+    results[2, 1:m] <- dist
+    results[3, 1:m] <- beta.err
+  }else{
+    results <- matrix(NA, 1, 3)
+    colnames(results) <- c("FP", "FDR", "FWER")
+    rownames(results) <- c("Power")
+    results[1, ] <- c(fp, fdr, fwer)
+  }
+
+  return(results)
+}
+
