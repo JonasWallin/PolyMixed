@@ -3,7 +3,8 @@
 #  Ghost QTL and hotspots in experimental crosses - novel approach for modeling polygenic effects
 ##
 library(PolyMixed)
-save.fig = F
+library(latex2exp)
+save.fig = T
 data('Figure1')
 
 t2    <- 0:1500
@@ -17,9 +18,8 @@ ttes<-function(x,y){
   return(u$coefficients[2,3])}
 t2<-apply(X,2,ttes, y=Y);
 
-
+#x11()
 par(mar=c(5.1, 5.1, 4.1, 2.1))
-
 par(mfrow=c(2,2))
 plot(t2, type='l', xlab='Marker', ylab='t', cex.lab=2);
 lim<-150*seq(1:9);
@@ -30,11 +30,12 @@ her<-var(X%*%gamma)/var(Y);
 
 per<-(apply(X,1,'mean')+1)/2;
 c2<-cor(X,per);
-plot(c2, type='l', xlab='Marker', ylab='Cor(X,U)', cex.lab=2)
+y_lab <- TeX("Cor($X$,U)")
+plot(c2, type='l', xlab='Marker', ylab=y_lab, cex.lab=2)
 abline(v=lim, col='red', lty=2)
 
 plot(t2~gamma, xlab=expression(paste(gamma)), ylab='t',cex.lab=2)
-plot(t2~c2, xlab='Cor(X,U)', ylab='t',cex.lab=2)
+plot(t2~c2, xlab=y_lab, ylab='t',cex.lab=2)
 
 if(save.fig){
   dev.print(file="Figure1.pdf",dev=pdf, width=15, height=15)
