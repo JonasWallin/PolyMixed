@@ -25,7 +25,7 @@ ns <- c(100,200,300,400,500)         # observations
 taus <- c(0,0.01,0.05)     # sd for polygenic effect
 
 # parameters----------------------------------------------------------------
-q <- 200                # number of simulations
+q <- 2000                # number of simulations
 chr <- 10                # chromosomes
 m <- 150                 # markers on chromosome
 M <- chr * m             # all markers
