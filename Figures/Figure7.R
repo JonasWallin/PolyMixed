@@ -107,6 +107,7 @@ find.simple <- which(abs(t.simple) > crit.simple)
 if(save.fig==F)
   x11()
 print(plotTrait(abs(t.simple), markers, crit.simple) +
+        ylim(0, 12.5) +
         theme(axis.title.y=element_text(size=mareker_size),
               axis.title.x = element_text(size=mareker_size),
               plot.title = element_text(size=mareker_size)))
@@ -131,6 +132,7 @@ if(save.fig==F)
   x11()
 
 print(plotTrait(abs(MixGeneObj$t), markers, MixGeneObj$crit)+
+        ylim(0, 12.5) +
         theme(axis.title.y=element_text(size=mareker_size),
               axis.title.x = element_text(size=mareker_size),
               plot.title = element_text(size=mareker_size))
@@ -150,6 +152,7 @@ if(save.fig==F)
 
 
 print(plotTrait(abs(t.CIM), markers, crit.CIM) +
+        ylim(0, 12.5) +
         theme(axis.title.y=element_text(size=mareker_size),
               axis.title.x = element_text(size=mareker_size),
               plot.title = element_text(size=mareker_size)))

@@ -9,8 +9,8 @@ Description: More about what it does (maybe more than one line)
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
-Imports: Rcpp (>= 0.12.16), svMisc, ArgumentCheck, RcppEigen, numDeriv
-LinkingTo: Rcpp, svMisc, ArgumentCheck, RcppEigen
+Imports: Rcpp (>= 0.12.16), svMisc, RcppEigen, numDeriv
+LinkingTo: Rcpp, svMisc, RcppEigen
 RoxygenNote: 7.1.1
 Depends: 
     R (>= 2.10)

@@ -3,7 +3,6 @@
 #
 # D: 2018-11-23
 ##
-library(ArgumentCheck)
 library(svMisc)
 library(RcppEigen)
 library(numDeriv)
@@ -433,20 +432,13 @@ simulatetvalues<- function(Y,
 
   model <- match.arg(model)
   p <- dim(X)[2]
-  Check <- ArgumentCheck::newArgCheck()
 
   if(model=='simple'){
     theta0 <- c(log(sd(Y)), log(sd(Y))-2)
   }else{
-    if(is.null(nc))
-      ArgumentCheck::addError(
-        msg = "if model not simple must set nc",
-        argcheck = Check
-      )
 
     theta0 <- c(log(sd(Y)), log(sd(Y))-2, log(sd(Y))-2)
   }
-  ArgumentCheck::finishArgCheck(Check)
 
 
   if(is.null(betas))
@@ -517,20 +509,13 @@ gettvaluesCond  <- function(index,
 
   model <- match.arg(model)
   p <- dim(X)[2]
-  Check <- ArgumentCheck::newArgCheck()
 
   if(model=='simple'){
     theta0 <- c(log(sd(Y)), log(sd(Y))-2)
   }else{
-    if(is.null(nc))
-      ArgumentCheck::addError(
-        msg = "if model not simple must set nc",
-        argcheck = Check
-      )
 
     theta0 <- c(log(sd(Y)), log(sd(Y))-2, log(sd(Y))-2)
   }
-  ArgumentCheck::finishArgCheck(Check)
 
 
   if(is.null(betas))
@@ -605,20 +590,14 @@ gettvaluesCond2  <- function(index,
 
   model <- match.arg(model)
   p <- dim(X)[2]
-  Check <- ArgumentCheck::newArgCheck()
 
   if(model=='simple'){
     theta0 <- c(log(sd(Y)), log(sd(Y))-2)
   }else{
-    if(is.null(nc))
-      ArgumentCheck::addError(
-        msg = "if model not simple must set nc",
-        argcheck = Check
-      )
+
 
     theta0 <- c(log(sd(Y)), log(sd(Y))-2, log(sd(Y))-2)
   }
-  ArgumentCheck::finishArgCheck(Check)
 
 
   if(is.null(betas))
@@ -684,20 +663,13 @@ gettavlues  <- function(Y,
 
   model <- match.arg(model)
   p <- dim(X)[2]
-  Check <- ArgumentCheck::newArgCheck()
 
   if(model=='simple'){
     theta0 <- c(log(sd(Y)), log(sd(Y))-2)
   }else{
-    if(is.null(nc))
-      ArgumentCheck::addError(
-        msg = "if model not simple must set nc",
-        argcheck = Check
-      )
 
     theta0 <- c(log(sd(Y)), log(sd(Y))-2, log(sd(Y))-2)
   }
-  ArgumentCheck::finishArgCheck(Check)
 
 
   if(is.null(betas))
@@ -771,20 +743,13 @@ backStepIter  <- function(Y,
 
   model <- match.arg(model)
   p <- dim(X)[2]
-  Check <- ArgumentCheck::newArgCheck()
 
   if(model=='simple'){
     theta0 <- c(log(sd(Y)), log(sd(Y))-2)
   }else{
-    if(is.null(nc))
-      ArgumentCheck::addError(
-        msg = "if model not simple must set nc",
-        argcheck = Check
-      )
 
     theta0 <- c(log(sd(Y)), log(sd(Y))-2, log(sd(Y))-2)
   }
-  ArgumentCheck::finishArgCheck(Check)
   if(is.null(SVDX))
     SVDX = svd(X, nu= nrow(X))
   likObj <- loglikSetup(Y, Xk = X[,betas != 0], X, nc = nc, SVDX = SVDX)
@@ -857,20 +822,13 @@ backStepIter2  <- function(Y,
 
   model <- match.arg(model)
   p <- dim(X)[2]
-  Check <- ArgumentCheck::newArgCheck()
 
   if(model=='simple'){
     theta0 <- c(log(sd(Y)), log(sd(Y))-2)
   }else{
-    if(is.null(nc))
-      ArgumentCheck::addError(
-        msg = "if model not simple must set nc",
-        argcheck = Check
-      )
-
     theta0 <- c(log(sd(Y)), log(sd(Y))-2, log(sd(Y))-2)
   }
-  ArgumentCheck::finishArgCheck(Check)
+
   if(is.null(SVDX))
     SVDX = svd(X, nu= nrow(X))
   while(sum(betas!=0) > 0){

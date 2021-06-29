@@ -15,7 +15,7 @@ library(bigstep)
 library(reshape2)
 seed  = 7
 set.seed(seed)
-
+col_v = 1.5
 library(PolyMixed)
 # parameters------------------------------------------------------------
 chr <- 10                # chromosomes
@@ -89,7 +89,7 @@ for(trait in traits){
     for(f in MixGeneObj$find){
       fig <- fig + geom_vline(xintercept = f,
                               color = "red",
-                              size=1,
+                              size=col_v,
                               alpha = alpha_res)
     }
     print(fig +
@@ -162,7 +162,7 @@ for(trait in traits){
     for(f in MixGeneObj$find){
       fig <- fig + geom_vline(xintercept = f,
                               color = "red",
-                              size=1,
+                              size=col_v,
                               alpha = alpha_res)
     }
     print(fig +
@@ -206,7 +206,7 @@ for(trait in traits){
   for(f in MixGeneObj$find){
     fig <- fig + geom_vline(xintercept = f,
                             color = "red",
-                            size=1,
+                            size=col_v,
                             alpha = alpha_res)
   }
   print(fig+
@@ -269,7 +269,7 @@ for(trait in traits){
   for(f in MixGeneObj$find){
     fig <- fig + geom_vline(xintercept = f,
                             color = "red",
-                            size=1,
+                            size= col_v,
                             alpha = alpha_res)
   }
   print(fig +

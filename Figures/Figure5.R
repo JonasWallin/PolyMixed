@@ -1,13 +1,13 @@
 ###
 # test how positive correlates with size of polygenic effect
-#
 ###
-save.fig=F
+save.fig=T
 library(bigstep)
 library(PolyMixed)
 library(RcppEigen)
 library(ggplot2)
 library(bigstep)
+set.seed(6)
 table <- 2        # which table
 q     <- 100     # number of simulations
 #thin =  how often to observe X (i.e. cm distnace)
@@ -190,19 +190,20 @@ i <- 1
 for( false_i in false_result){
   beta_false[i] <- beta.mix.forward[[k]][find.mix.forward[[k]]==false_result[i]]
   index <- intersect(false_i + -pos_range:pos_range,1:length(betas[[k]]))
-  max_i <- which(abs(betas[[k]][index])== max(abs(betas[[k]][index])))
+  max_i <- min(which(abs(betas[[k]][index])== max(abs(betas[[k]][index])))) #largest of the true values
   gamma_false <- c(gamma_false, betas[[k]][index[max_i]])
   i <- i + 1
 }
 gammas <- betas[[k]][-qtl.pos]
 gammas <- gammas[abs(gammas)>0]
+gammas <- c(gammas,0)
 vec <- cbind(rank(gammas), gammas)
 index <- which(gammas%in% gamma_false)
 if(save.fig)
   pdf('Figure5.pdf')
 plot(vec[-index,1],vec[-index,2],pch=20,
      ylab=expression(gamma),
-     xlab='index',
+     xlab='Index in the ordered sequence of polygenic effects',
      ylim = c(1.05*min(c(vec[,2],beta_false)),1.05*max(c(vec[,2],beta_false))),
      xlim = c(0, length(gammas)),
      cex=0.3,

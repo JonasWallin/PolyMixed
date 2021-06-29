@@ -44,26 +44,14 @@ iterativeForwardSelectR<-function(Y,
   p <- dim(X)[2]
   if(is.null(kmax))
     kmax = min(p, 20)
-  Check <- ArgumentCheck::newArgCheck()
-
-  if (kmax  > p)
-    ArgumentCheck::addError(
-      msg = "kmax must be smaller then p",
-      argcheck = Check
-    )
 
   if(model=='simple'){
     theta0 <- c(log(sd(Y)), log(sd(Y))-2)
   }else{
-    if(is.null(nc))
-      ArgumentCheck::addError(
-        msg = "if model not simple must set nc",
-        argcheck = Check
-      )
+
 
     theta0 <- c(log(sd(Y)), log(sd(Y))-2, log(sd(Y))-2)
   }
-  ArgumentCheck::finishArgCheck(Check)
   beta <- rep(0, p)
 
   # the iteration procedure
