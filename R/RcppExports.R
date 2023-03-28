@@ -10,7 +10,7 @@
 #' @param U is the low rank matrix
 #' @export
 WoodburySpecial <- function(D, U) {
-    .Call('_PolyMixed_WoodburySpecial', PACKAGE = 'PolyMixed', D, U)
+    .Call(`_PolyMixed_WoodburySpecial`, D, U)
 }
 
 #' Update a Cholesky factor R of Q=R'R
@@ -20,22 +20,24 @@ WoodburySpecial <- function(D, U) {
 #' @param x is a matrix
 #'
 CholUpdate <- function(R, U) {
-    .Call('_PolyMixed_CholUpdate', PACKAGE = 'PolyMixed', R, U)
+    .Call(`_PolyMixed_CholUpdate`, R, U)
 }
 
 getTValues <- function(index, Xu, uX, Sigma_U, Y) {
-    .Call('_PolyMixed_getTValues', PACKAGE = 'PolyMixed', index, Xu, uX, Sigma_U, Y)
+    .Call(`_PolyMixed_getTValues`, index, Xu, uX, Sigma_U, Y)
 }
 
 getTValuesDiagS <- function(index, Xu, uX, Sigma_U, Y) {
-    .Call('_PolyMixed_getTValuesDiagS', PACKAGE = 'PolyMixed', index, Xu, uX, Sigma_U, Y)
+    .Call(`_PolyMixed_getTValuesDiagS`, index, Xu, uX, Sigma_U, Y)
 }
 
+#' @export
 crossSelect <- function(X1, X2, cross) {
-    invisible(.Call('_PolyMixed_crossSelect', PACKAGE = 'PolyMixed', X1, X2, cross))
+    invisible(.Call(`_PolyMixed_crossSelect`, X1, X2, cross))
 }
 
+#' @export
 mixing_population <- function(X1, X2, Z1, Z2, n_gen, lambda_cross) {
-    invisible(.Call('_PolyMixed_mixing_population', PACKAGE = 'PolyMixed', X1, X2, Z1, Z2, n_gen, lambda_cross))
+    invisible(.Call(`_PolyMixed_mixing_population`, X1, X2, Z1, Z2, n_gen, lambda_cross))
 }
 

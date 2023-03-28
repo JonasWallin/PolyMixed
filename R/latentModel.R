@@ -143,6 +143,7 @@ loglikSimpleR <- function(theta, likObj, restricted = T, Xu = NULL, BIC = F){
   if(is.null(Xu))
     return(lik)
 
+
   XtSinvY <- t(Xu)%*%SinvY
   if(is.vector(Sigma_U)){
     SinvX <- Xu / Sigma_U

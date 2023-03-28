@@ -25,6 +25,7 @@ using namespace Rcpp;
  *  cross - (N  x1) number of crosses for each indivual
  *
  */
+//' @export
 // [[Rcpp::export]]
 void crossSelect(Eigen::Map<Eigen::MatrixXd> X1,
                  Eigen::Map<Eigen::MatrixXd> X2,
@@ -64,8 +65,8 @@ void crossSelect(Eigen::Map<Eigen::MatrixXd> X1,
  *  Z1    - ( N x n) ancesteror gene 1 for indivuals
  *  Z2    - ( N x n) ancesteror gene 2 for indivuals
  *  n_gen - (1  x1) number of genrations
- *
  */
+//' @export
 // [[Rcpp::export]]
 void mixing_population(Eigen::Map<Eigen::MatrixXd> X1,
                  Eigen::Map<Eigen::MatrixXd> X2,

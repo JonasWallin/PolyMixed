@@ -6,7 +6,7 @@
 ###
 rm(list=ls())
 graphics.off()
-save.fig = T
+save.fig = F
 library(RcppEigen)
 library(ggplot2)
 library(bigstep)

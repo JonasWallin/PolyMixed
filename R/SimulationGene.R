@@ -6,6 +6,20 @@
 
 
 
+#'
+#' @param type (int) 1,2,3
+#'                  1 - pure mixed effect
+#'                  2 - varying effect over chromosones
+#'                  3 - varying effect over each chromosone
+#' @param k     (int) number of chromosone
+#' @param n     (int) number of observations
+#' @param L     (int) length of chromosne (i.e number locus)
+#' @param tau   (double) beta variation
+#' @param mu    (double) baseline beta
+#' @param sigma (double) standard deviation of measurement error
+#' @param betas (k*L) which betas are nonzero
+#' @param betasVal (k*L or 1x1) which are the values of betas
+#' @export
 simulation_GeneData <- function(type,
                                 k = 10,
                                 n = 500,
@@ -15,20 +29,6 @@ simulation_GeneData <- function(type,
                                 sigma = 1,
                                 betas = NULL,
                                 betasVal = NULL){
-  #' simulation types
-  #'
-  #' @param type (int) 1,2,3
-  #'                  1 - pure mixed effect
-  #'                  2 - varying effect over chromosones
-  #'                  3 - varying effect over each chromosone
-  #' @param k     (int) number of chromosone
-  #' @param n     (int) number of observations
-  #' @param L     (int) length of chromosne (i.e number locus)
-  #' @param tau   (double) beta variation
-  #' @param mu    (double) baseline beta
-  #' @param sigma (double) standard deviation of measurement error
-  #' @param betas (k*L) which betas are nonzero
-  #' @param betasVal (k*L or 1x1) which are the values of betas
 
   # setting up X
   d <- 1 #odleglosc miedzy sasiednimi markerami w cM
@@ -90,6 +90,7 @@ simulation_GeneData <- function(type,
 #' @param ngen         - (int)  number of generations to simulate
 #' @param p            - (N x 1) probability of generating offspring
 #' @param lambda_cross - (double) intensty of number of crossing
+#' @export
 ###
 simulation_GeneDataSelectionR <-function(beta, X, ngen, p, lambda_cross){
 
@@ -145,6 +146,8 @@ simulation_GeneDataSelectionR <-function(beta, X, ngen, p, lambda_cross){
 #' @param ngen         - (int)  number of generations to simulate
 #' @param p            - (N x 1) probability of generating offspring
 #' @param lambda_cross - (double) intensty of number of crossing
+#'
+#' @export
 ###
 simulation_GeneDataSelection <-function(beta, X, ngen, p, lambda_cross){
 
@@ -193,7 +196,7 @@ simulation_GeneDataSelection <-function(beta, X, ngen, p, lambda_cross){
 #' @param X2            - (N2 x n x 2) original X pop2
 #' @param ngen         - (int)  number of generations to simulate
 #' @param lambda_cross - (double) intensty of number of crossing
-
+#' @export
 simulation_mixingR <- function(X1,
                               X2,
                               lambda_cross,
@@ -252,7 +255,7 @@ simulation_mixingR <- function(X1,
 #' @param X2            - (N2 x n x 2) original X pop2
 #' @param ngen         - (int)  number of generations to simulate
 #' @param lambda_cross - (double) intensty of number of crossing
-
+#' @export
 simulation_mixing <- function(X1,
                               X2,
                               lambda_cross,

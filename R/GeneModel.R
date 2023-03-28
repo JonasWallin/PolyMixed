@@ -254,6 +254,7 @@ mixedModel <- function(GeneMixObj, find = NULL, dupl = NULL, estPar = TRUE, rest
 #' A more general backward model for geneObject
 #' @pram restricted - using restricted ML to estimate parameters
 #' @param C         - mBIO2 parameter
+#' @export
 GeneBackward <- function(GeneMixObj,
                         dupl = NULL,
                         restricted=T,
@@ -313,7 +314,7 @@ GeneBackward <- function(GeneMixObj,
 #'
 #' A more general forward model for geneObject
 #'
-#'
+#' @export
 GeneForward <- function(GeneMixObj,
                         candidates = NULL,
                         dupl = NULL,
@@ -429,4 +430,12 @@ mixedModelForwardBackward <- function(GeneMixObj,
 
   GeneMixObj$crit <- crit
   return(GeneMixObj)
+}
+#'
+#' fitting a mixed model with selection on X usign forward selection
+#' @param GeneMixObj
+#' @export
+mixedModelGetBeta <- function(GeneMixObj){
+  betas <- getBeta(GeneMixObj$theta0,GeneMixObj$LikObj)
+  return(betas)
 }
